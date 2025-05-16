@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: safeapi
+      POSTGRES_PASSWORD: safeapi
+      POSTGRES_DB: safeapi
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U safeapi"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://safeapi:safeapi@db:5432/safeapi
+      JWT_SECRET: yoursecretkey
+      PKCE_CLIENT_ID: your-client-id
+      PKCE_CLIENT_SECRET: your-client-secret
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src/infrastructure/prisma:/app/prisma
+
+    command: sh -c "npx prisma migrate deploy --schema=prisma/schema.prisma && npx prisma db seed --schema=prisma/schema.prisma && node dist/interfaces/routes/index.js"
+volumes:
+  db_data:

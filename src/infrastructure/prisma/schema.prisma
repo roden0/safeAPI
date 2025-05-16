@@ -1,0 +1,20 @@
+// Prisma schema for safeAPI
+// Run migrations with: npx prisma migrate dev --schema=src/infrastructure/prisma/schema.prisma
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  avatar    String   // Path to avatar image
+  createdAt DateTime @default(now())
+}

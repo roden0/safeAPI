@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+dist
+docker-compose.override.yml
+.env
+# .env.* (do NOT ignore .env.example)
+
+.git
+.gitignore
+.idea
+.vscode
+coverage

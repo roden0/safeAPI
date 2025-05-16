@@ -1,0 +1,40 @@
+{
+  "name": "safeapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --experimental-strip-types src/interfaces/routes/index.ts",
+    "build": "tsc",
+    "start": "node dist/interfaces/routes/index.js",
+    "test": "jest",
+    "prisma": "prisma"
+  },
+  "dependencies": {
+    "@fastify/multipart": "latest",
+    "@fastify/oauth2": "latest",
+    "@fastify/static": "latest",
+    "@prisma/client": "latest",
+    "fastify": "^5.3.3",
+    "fastify-jwt": "latest",
+    "fastify-swagger": "latest",
+    "fastify-websocket": "latest",
+    "jsonwebtoken": "latest",
+    "zod": "latest"
+  },
+  "prisma": {
+    "seed": "node dist/infrastructure/prisma/seed.js --schema=prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "jest": "latest",
+    "prisma": "latest",
+    "sinon": "latest",
+    "ts-jest": "latest",
+    "ts-node-dev": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
